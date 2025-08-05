@@ -7,10 +7,25 @@
       font-family: Arial, sans-serif;
       background: #f0f8ff;
       padding: 30px;
+      text-align: center;
+    }
+
+    .logo-circle {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      border-radius: 50%;
+      border: 4px solid #1abc9c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: #1abc9c;
+      background: white;
     }
 
     h1 {
-      text-align: center;
       color: #1abc9c;
       font-size: 42px;
       font-weight: bold;
@@ -20,7 +35,6 @@
     }
 
     h2 {
-      text-align: center;
       color: #2c3e50;
       font-size: 24px;
       margin-bottom: 30px;
@@ -36,8 +50,10 @@
 
     label, input, button {
       margin-top: 15px;
-      display: block;
       font-size: 16px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     input {
@@ -68,96 +84,122 @@
       font-size: 18px;
       color: #d35400;
     }
-
-    #prevention {
-      margin-top: 10px;
-      font-size: 16px;
-      color: #34495e;
-    }
   </style>
 </head>
 <body>
 
+  <div class="logo-circle">CareCue</div>
+
   <h1>CareCue</h1>
   <h2>Medical Symptoms Checker</h2>
 
-  <p class="option">1. High fever, headache, stomach pain</p>
-  <p class="option">2. Chills, fever, sweating</p>
-  <p class="option">3. Cough, chill, chest pain</p>
-  <p class="option">4. Sneezing, runny nose, sore throat</p>
-  <p class="option">5. Fatigue, joint pain, rash</p>
-  <p class="option">6. Nausea, vomiting, yellow skin</p>
-  <p class="option">7. Weight loss, night sweats, persistent cough</p>
-  <p class="option">8. Itchy eyes, sneezing, runny nose</p>
-  <p class="option">9. Fever, muscle pain, red eyes</p>
-  <p class="option">10. Sore throat, swollen glands, fatigue</p>
+  <div id="symptoms-list">
+    <p class="option">1. High fever, headache, stomach pain</p>
+    <p class="option">2. Chills, fever, sweating</p>
+    <p class="option">3. Cough, chill, chest pain</p>
+    <p class="option">4. Sneezing, runny nose, sore throat</p>
+    <p class="option">5. Fatigue, joint pain, rash</p>
+    <p class="option">6. Nausea, vomiting, yellow skin</p>
+    <p class="option">7. Weight loss, night sweats, persistent cough</p>
+    <p class="option">8. Itchy eyes, sneezing, runny nose</p>
+    <p class="option">9. Fever, muscle pain, red eyes</p>
+    <p class="option">10. Sore throat, swollen glands, fatigue</p>
+    <p class="option">11. Headache, blurred vision, confusion</p>
+    <p class="option">12. Vomiting, diarrhea, stomach cramps</p>
+    <p class="option">13. Chest tightness, wheezing, short breath</p>
+    <p class="option">14. Painful urination, cloudy urine</p>
+    <p class="option">15. Blisters on lips, fever, swollen gums</p>
+    <p class="option">16. Neck stiffness, fever, vomiting</p>
+    <p class="option">17. Severe abdominal pain, bloating</p>
+    <p class="option">18. Skin redness, swelling, pus</p>
+    <p class="option">19. Irregular heartbeat, chest pain</p>
+    <p class="option">20. Sudden dizziness, blurred vision</p>
+  </div>
 
-  <label for="choice">Enter your choice (1-10):</label>
-  <input type="number" id="choice" min="1" max="10" />
+  <label for="choice">Enter your choice (1-20):</label>
+  <input type="number" id="choice" min="1" max="20" />
   <button onclick="checkSymptoms()">Check</button>
 
   <p id="result"></p>
-  <p id="prevention"></p>
 
   <script>
     function checkSymptoms() {
       const input = document.getElementById("choice").value;
       const choice = parseInt(input);
-      let result = "";
-      let prevention = "";
+      let output = "";
 
-      switch (choice) {
-        case 1:
-          result = "Maybe it is Typhoid. You must visit a doctor.";
-          prevention = "Drink clean, boiled water. Avoid street food and maintain hygiene.";
-          break;
-        case 2:
-          result = "This may be Malaria.";
-          prevention = "Use mosquito nets, repellents, and remove standing water around your home.";
-          break;
-        case 3:
-          result = "You might have Pneumonia.";
-          prevention = "Get vaccinated. Avoid cold exposure and wash hands frequently.";
-          break;
-        case 4:
-          result = "This may be Common Cold. Take rest and drink plenty of fluids.";
-          prevention = "Wash hands regularly and avoid close contact with sick individuals.";
-          break;
-        case 5:
-          result = "This may be Dengue. Get a blood test.";
-          prevention = "Avoid mosquito bites. Use repellents and eliminate stagnant water.";
-          break;
-        case 6:
-          result = "It may be Jaundice. Consult a doctor.";
-          prevention = "Drink clean water, maintain liver health, and avoid alcohol.";
-          break;
-        case 7:
-          result = "This may be Tuberculosis (TB). Seek medical attention.";
-          prevention = "Cover your mouth when coughing, ensure ventilation, and get the BCG vaccine.";
-          break;
-        case 8:
-          result = "You might have an Allergy.";
-          prevention = "Avoid known allergens like pollen, dust, or certain foods.";
-          break;
-        case 9:
-          result = "This could be Viral Fever. Rest is important.";
-          prevention = "Maintain good hygiene and avoid contact with infected individuals.";
-          break;
-        case 10:
-          result = "It may be Mononucleosis. Get checked by a physician.";
-          prevention = "Avoid sharing food, drinks, or utensils and get enough rest.";
-          break;
-        default:
-          result = "Invalid choice. Please enter a number from 1 to 10.";
-          prevention = "";
+      if (!input || isNaN(choice)) {
+        output = "Please enter a valid number (1 to 20).";
+      } else {
+        switch (choice) {
+          case 1:
+            output = "Typhoid. <br><b>Prevention:</b> Drink clean water. <br><b>Medicine:</b> Ciprofloxacin.";
+            break;
+          case 2:
+            output = "Malaria. <br><b>Prevention:</b> Use mosquito nets. <br><b>Medicine:</b> Artemisinin-based drugs.";
+            break;
+          case 3:
+            output = "Pneumonia. <br><b>Prevention:</b> Get vaccinated. <br><b>Medicine:</b> Antibiotics.";
+            break;
+          case 4:
+            output = "Common Cold. <br><b>Prevention:</b> Avoid cold drinks. <br><b>Medicine:</b> Paracetamol.";
+            break;
+          case 5:
+            output = "Dengue. <br><b>Prevention:</b> No stagnant water. <br><b>Medicine:</b> Fluids & rest.";
+            break;
+          case 6:
+            output = "Jaundice. <br><b>Prevention:</b> Avoid alcohol. <br><b>Medicine:</b> Supportive care.";
+            break;
+          case 7:
+            output = "Tuberculosis (TB). <br><b>Prevention:</b> BCG vaccine. <br><b>Medicine:</b> Isoniazid, Rifampicin.";
+            break;
+          case 8:
+            output = "Allergy. <br><b>Prevention:</b> Avoid allergens. <br><b>Medicine:</b> Antihistamines.";
+            break;
+          case 9:
+            output = "Viral Fever. <br><b>Prevention:</b> Maintain hygiene. <br><b>Medicine:</b> Paracetamol.";
+            break;
+          case 10:
+            output = "Mononucleosis. <br><b>Prevention:</b> Don’t share utensils. <br><b>Medicine:</b> Supportive care.";
+            break;
+          case 11:
+            output = "Meningitis. <br><b>Prevention:</b> Vaccination. <br><b>Medicine:</b> IV antibiotics.";
+            break;
+          case 12:
+            output = "Food Poisoning. <br><b>Prevention:</b> Eat fresh food. <br><b>Medicine:</b> ORS and antibiotics.";
+            break;
+          case 13:
+            output = "Asthma. <br><b>Prevention:</b> Avoid triggers. <br><b>Medicine:</b> Inhalers.";
+            break;
+          case 14:
+            output = "UTI. <br><b>Prevention:</b> Drink water. <br><b>Medicine:</b> Antibiotics.";
+            break;
+          case 15:
+            output = "Herpes Simplex. <br><b>Prevention:</b> Avoid sharing items. <br><b>Medicine:</b> Acyclovir.";
+            break;
+          case 16:
+            output = "Meningitis. <br><b>Prevention:</b> Vaccination. <br><b>Medicine:</b> IV antibiotics.";
+            break;
+          case 17:
+            output = "Appendicitis. <br><b>Prevention:</b> Difficult. <br><b>Medicine:</b> Surgery needed.";
+            break;
+          case 18:
+            output = "Skin Infection. <br><b>Prevention:</b> Keep wounds clean. <br><b>Medicine:</b> Antibiotic cream.";
+            break;
+          case 19:
+            output = "Heart Attack. <br><b>Prevention:</b> Healthy diet. <br><b>Medicine:</b> Aspirin, Nitroglycerin.";
+            break;
+          case 20:
+            output = "Stroke. <br><b>Prevention:</b> Control BP. <br><b>Medicine:</b> Thrombolytics (emergency).";
+            break;
+          default:
+            output = "Invalid choice. Please enter a number from 1 to 20.";
+        }
       }
 
-      document.getElementById("result").innerText = result;
-      document.getElementById("prevention").innerText = prevention;
+      document.getElementById("result").innerHTML = output;
     }
   </script>
-
 </body>
 </html>
-
 
